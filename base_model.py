@@ -171,7 +171,6 @@ class Model(nn.Module):
 
     def forward(self, x):
         cheb_laplacian, attention = self.latent_correlation(x * 0)
-
         attention_np = attention.cpu()
         attention_np = attention_np.detach().numpy()
         np.savetxt("W.csv", attention_np, delimiter=',')
