@@ -1,8 +1,3 @@
----
-title: "Multivariate Time Series Prediction Based on GNN-GLU Model"
-excerpt: "<img src='/images/model_archi.png'>"
----
-
 # Introduction
 
 Time series forecasting plays a vital role in a wide range of real-world applications, from economics and finance to 
