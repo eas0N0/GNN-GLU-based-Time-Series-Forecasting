@@ -12,25 +12,15 @@ to improve the accuracy of forecasting. For instance, as shown in Figure 1, the 
 correlated and the rise in crude oil may indicate a rise in the price of gasoline in the near future. The observation motivates
 that utilising the information from both time series would help us better forecast the trend of each one.
 
-**Significance and Novelty** &emsp; Making accurate multivariate time series forecasting is challenging, especially in some
-complicated scenarios such as the stock market, where the correlations between different stocks are not fixed and difficult
-to capture. Some traditional statistical methods may fail because they assume there are linear correlations among time
-series[1]. Besides, deep learning models involving LSTM [2] and GRU[3] do not perform well because it is difficult for
-them to extract spatial and temporal features jointly[4]. Aiming to capture inter-series correlation and intra-series patterns
-jointly, we proposed a GNN-GLU model to shuttle between the temporal and spectral domains and make forecasts based
-on information from multivariate time series data. To verify the significance of our model, we also conduct experiments
-on stock forecasting and COVID-19 new case forecasting with real-world data.
 
 # Methodology
 
-The illustration of our model is shown in Figure 2. Given multivariate time-series $ X $ as input, we first generate the
-correlations among different time series and build the graph $ \mathcal{G}  $. Then we put $ \mathcal{G}  $ into the following three layers. Firstly, the **Spectral Layer** contains a Graph Fourier Transform, an Intra-series Layer, a Spectral Graph Convolution, and an
+The illustration of our model is shown in Figure 2. Given multivariate time-series X as input, we first generate the
+correlations among different time series and build the graph G. Then we put G into the following three layers. Firstly, the **Spectral Layer** contains a Graph Fourier Transform, an Intra-series Layer, a Spectral Graph Convolution, and an
 inverse Graph Fourier Transform. It mainly captures the inter-series relationship. Secondly, the **Intra-series Layer**
 performs Discrete Fourier Transform, 1D Convolution, GLU, and inverse Discrete Fourier Transform. It mainly learns
 the intra-series features. Thirdly, the **Temporal Layer** applies the GLU and Fully-connected layer (FC), making the
 prediction. The loss function of the GLU-GNN forecasting network can be written as:
-
-$$ \mathcal{L}(\widehat{X}_{t}, X_{t} ; \Theta)=\sum_{t=K}^{T}\|\widehat{\boldsymbol{X}}_{\boldsymbol{t}}-X_{t}\|_{2}^{2}+\frac{\lambda}{2}\|\Theta\|_{2}^{2} $$
 
 ![model](https://github.com/eas0N0/eas0N0.github.io/assets/129197157/182b0f63-1cff-48fa-b49f-70fee4878727)
 
@@ -47,8 +37,8 @@ six industry categories: Finance, Properties, Industrials, Conglomerates, Commer
 stocks with top 30% market capitalization to ensure model stability.
 We chose the closing price on a given trading day as the input for the model. In our experiment, we selected nine stocks
 with historical data of 500 trading days. We trained the GNN-GLU model based on these data and used a rolling strategy
-with a window size of 30 to forecast the next 10 days’ prices. More specifically, after we forecast the price of day $t$, we
-combined the forecasting value with the prices of the past 29 days to predict the price of day $t + 1$.
+with a window size of 30 to forecast the next 10 days’ prices. More specifically, after we forecast the price of day t, we
+combined the forecasting value with the prices of the past 29 days to predict the price of day t+1.
 
 **Results and Discussion** &emsp; Our experiment results yielded three main findings. First, our hybrid GNN-GLU model
 outperforms other methods in terms of accuracy indicators, including Mean Absolute Error (MAE), Root Mean Square
